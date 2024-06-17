@@ -1,0 +1,178 @@
+body {
+    max-width : 1000px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    font-size: 1em;
+    display: flex;
+    align-items: end;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.back-btn i {
+    margin-right: 5px;
+}
+
+.back-btn:hover {
+    color: #45a049;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    max-width: 780px;
+    margin: 80px auto 20px auto; /* Adjusted margin for header space */
+    background-color: #111111;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.person-content {
+    text-align: center;
+}
+
+.person-content img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.person-content h2 {
+    font-size: 2em;
+    margin: 10px 0;
+    color: #fff;
+}
+
+.person-content p {
+    font-size: 1em;
+    color: #bbb;
+    margin: 10px 0;
+	text-align: justify;
+}
+
+.person-movies-section {
+    margin-top: 40px;
+	padding: 10px 0;
+	width: 100%;
+}
+
+.person-movies-section h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+	margin-left: 5px;
+    color: #fff;
+}
+
+.person-movies {
+	border-top: 1px solid #543;
+    display: flex;
+    overflow-x: auto;
+    padding: 15px;
+    max-width: 768px;
+}
+
+.person-movies::-webkit-scrollbar {
+    height: 8px;
+}
+
+.person-movies::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.movie-card {
+    position: relative;
+    width: 180px;
+	height: 220px;
+    margin-right: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Enhance shadow */
+    text-align: center;
+    font-size: small;
+    background-color: transparent; /* Ensure the background color is consistent */
+    border-radius: 15px; /* Add border-radius for rounded corners */
+	padding-bottom: 50px;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+}
+
+.movie-card img {
+    width: 180px;
+    height: 260px;
+    border-bottom: 1px solid #444;
+	cursor: pointer;
+	border-radius: 15px 15px 0 0;
+}
+
+.movie-card .movie-details {
+    font-size: 0.9em;
+    color: #CCCCCC;
+	text-align: center;
+    position: relative; /* Ensure the button is positioned relative to this container */
+}
+
+.add-to-list {
+    position: absolute;
+    bottom: 0px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.6); /* Keeping your background settings */
+    border-radius: 50%;
+    display: inline-block; /* Ensure the icons line up horizontally */
+	align-content: center;
+}
+
+.add-to-list.watchlist {
+    left: 5px; /* Align to the left side */
+}
+
+.add-to-list.favorites {
+    right: 5px; /* Align to the right side */
+}
+
+.add-to-list:hover {
+    background-color: #000;
+	transform: scale(1.05); /* Slightly enlarge the card on hover */
+    transition: transform 0.2s ease-in-out;
+}
+
+.favorites.added {
+    color: red; /* Change to your preferred color */
+}
+
+.watchlist.added {
+    color: green; /* Change to your preferred color */
+}
+
+.isCurrent {
+	position: relative;
+    bottom: 215px;
+    left: 145px;
+}
+
+.add-to {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    bottom: 40px;
+}
+
+#dropdown {
+	margin-top: 10px;
+    padding: 10px;
+    background-color: #1C1C1C;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+}

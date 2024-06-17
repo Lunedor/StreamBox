@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Box</title>
+	<link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="styles.css">
+	<link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+	 <div class="toggle-wrapper">
+        <div class="toggle-container">
+            <label class="switch">
+                <input type="checkbox" id="toggleMoviesTV">
+                <span class="slider">
+                    <span class="material-icons tv-icon" style="font-size:36px;">tv</span>
+					<span class="material-icons movie-icon" style="font-size:36px;">movie</span>
+					<span id="sliderText"></span>
+                </span>
+            </label>
+        </div>
+    </div>
+    <div class="searchArea" style="display: flex; align-items: center;">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button onclick="clearSearch()">Clear</button>
+    </div>
+	<center>
+	<button id="genreButton" class="genre-button" onclick="goToFilterPage()">Discover</button>
+	<div id="results"></div>
+	</center>
+    <div id="trendingMovies">
+        <h2 data-container="carouselWrapper" onclick="toggleSection('carouselWrapper')" style="cursor:pointer">Trending</h2>
+		<div id="carouselWrapper" class="carousel-wrapper">
+        <div id="trendingResults" class="movie-results"></div>
+		</div>
+    </div>
+	<div id="continueWatching">
+	<div class="popular-header">
+		<h2 data-container="continueWatchingResults" onclick="toggleSection('continueWatchingResults')" style="cursor:pointer">Continue Watching</h2>
+		<a href="items.html?list=currentWatchingState">Show all</a>
+		</div>
+		<div id="continueWatchingResults" class="movie-results"></div>
+	</div>
+	<div id="nextEpisodes">
+		<h2 data-container="nextEpisodesResults" onclick="toggleSection('nextEpisodesResults')" style="cursor:pointer">Up next</h2>
+		<div id="nextEpisodesResults" class="movie-results"></div>
+		<div class="next-episodes-container"></div>
+	</div>
+	<div id="naEpisodes">
+	<h2 data-container="na-episodes" onclick="toggleSection('na-episodes')" style="cursor:pointer">Waitlist</h2>
+		<div id="na-episodes">
+			<ul id="na-episodes-list"></ul>
+		</div>
+	</div>
+	<div class="favorites-header">
+		<h2 data-container="favoriteList" onclick="toggleSection('favoriteList')" style="cursor:pointer">
+        Watchlist <span id="favoriteCount">(0)</span>
+    </h2>
+		<button id="randomMovieBtn" onclick="showRandomMovie()">🎲</button>
+		<a href="items.html?list=favorites">Show all</a>
+	</div>
+    <div id="favoriteList" class="movie-list"></div>
+    <div id="popularMovies">
+		<div class="popular-header">
+        <h2 data-container="popularResults" onclick="toggleSection('popularResults')" style="cursor:pointer">Popular</h2>
+		<a href="items.html">Show all</a>
+		</div>
+        <div id="popularResults" class="movie-results"></div>
+    </div>
+	<div id="genreMovies">
+	<h2 data-container="ActionSection" onclick="toggleSection('ActionSection')" style="cursor:pointer">Action</h2>
+	<div id="ActionSection" class="movie-results"></div>
+	<h2 data-container="DramaSection" onclick="toggleSection('DramaSection')" style="cursor:pointer">Drama</h2>
+	<div id="DramaSection" class="movie-results"></div>
+	<h2 data-container="ScienceFictionSection" onclick="toggleSection('ScienceFictionSection')" style="cursor:pointer">Science Fiction</h2>
+	<div id="ScienceFictionSection" class="movie-results"></div>
+	<h2 data-container="MysterySection" onclick="toggleSection('MysterySection')" style="cursor:pointer">Mystery</h2>
+	<div id="MysterySection" class="movie-results"></div>
+	<h2 data-container="DocumentarySection" onclick="toggleSection('DocumentarySection')" style="cursor:pointer">Documentary</h2>
+	<div id="DocumentarySection" class="movie-results"></div>
+	<h2 data-container="AnimationSection" onclick="toggleSection('AnimationSection')" style="cursor:pointer">Animation</h2>
+	<div id="AnimationSection" class="movie-results"></div>
+	<h2 data-container="ComedySection" onclick="toggleSection('ComedySection')" style="cursor:pointer">Comedy</h2>
+	<div id="ComedySection" class="movie-results"></div>
+	<h2 data-container="RomanceSection" onclick="toggleSection('RomanceSection')" style="cursor:pointer">Romance</h2>
+	<div id="RomanceSection" class="movie-results"></div>	
+    <div class="watchlist-header">
+		<h2 data-container="watchlist" onclick="toggleSection('watchlist')" style="cursor:pointer">
+        Watched <span id="watchlistCount">(0)</span>
+    </h2>
+		<a href="items.html?list=watchlist">Show all</a>
+	</div>
+    <div id="watchlist" class="movie-list"></div>
+	<div id="bottomMenu" class="bottom-menu">
+		<select id="dropdown">
+			<option value="me">vidsrc.me</option>
+			<option value="to">vidsrc.to</option>
+			<option value="pro">vidsrc.pro</option>
+			<option value="in">vidsrc.in</option>
+			<option value="net">vidsrc.net</option>
+			<option value="xyz">vidsrc.xyz</option>
+			<option value="pm">vidsrc.pm</option>
+			<option value="2embed">2embed</option>
+			<option value="superembed">superembed</option>
+		</select>
+		<button id="backupButton" onclick="backupData()">Backup Data</button>
+		<button id="restoreButton" onclick="restoreData()">Restore Data</button>
+	</div>
+	<div id="randomMovieModal" class="modal">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<img id="randomMoviePoster" src="" alt="Movie Poster" class="modal-poster">
+			<div class="modal-details">
+				<h1 id="randomMovieTitle"></h1>
+				<p id="randomMovieYear"></p>
+				<p id="randomMovieGenre"></p>
+				<p id="randomMovieRating"></p>
+				<p id="randomMovieDuration"></p>
+				<p id="randomMovieTagline" style="font-style: italic;"></p>
+				<p id="randomMovieOverview"></p>
+				<button class="watch-btn" id="watchBtn">Watch!</button>
+			</div>
+		</div>
+	</div>
+	<script src="common.js" defer></script>
+    <script src="script.js" defer></script>
+</body>
+</html>

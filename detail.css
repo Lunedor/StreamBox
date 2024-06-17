@@ -1,0 +1,587 @@
+body {
+    max-width : 1000px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    font-size: 1em;
+    display: flex;
+    align-items: end;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.back-btn i {
+    margin-right: 5px;
+}
+
+.back-btn:hover {
+    color: #45a049;
+}
+
+.container {
+    overflow: hidden;
+    padding: 20px;
+    max-width: 780px;
+    margin: 10px auto; /* Adjusted margin for header space */
+    background-color: #111111;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.movie-poster-detail {
+    width: 100%;
+    max-width: 780px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin-bottom: 5px;
+}
+
+h2 {
+    color: #AAD1E6;
+	margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 2.5em;
+	text-align: center;
+}
+
+.movie-details p {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: #CCCCCC;
+	text-align: justify;
+}
+
+#seasonSelect {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #1C1C1C;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+	margin-left: 20px;
+}
+
+#resetProgressBtn {
+    background-color: #444444;
+    color: #FFFFFF;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    font-size: 0.7em;
+    transition: background-color 0.3s ease;
+}
+
+#resetProgressBtn:hover {
+    background-color: #CC4C35;
+}
+
+#episodeList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  margin-top: 20px; /* Space above the list */
+  max-height: 600px; /* Adjust this value to fit your design */
+  overflow-y: auto; /* Enables vertical scrolling */
+  overflow-x: hidden; /* Hides horizontal scrollbar */
+}
+
+.episode {
+  display: flex;
+  align-items: center;
+  background-color: #282828; /* Dark gray background */
+  border-radius: 4px;
+  overflow: hidden; /* Keeps all content within the rounded borders */
+  padding: 1px 10px;
+  min-height: 90px;
+}
+
+.episode-image {
+  flex-shrink: 0; /* Prevents the image from shrinking */
+  width: 100px; /* Fixed width for all images */
+  height: 56px; /* Fixed height for a 16:9 aspect ratio */
+  background-color: #000;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-right: 10px; /* Space between image and text */
+}
+
+.episode-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the area, no stretching */
+}
+
+.episode-info {
+  flex-grow: 1; /* Allows the text block to fill the rest of the row */
+  cursor: pointer;
+}
+
+.episode-info h3 {
+  text-align:left;
+  font-size: 0.9rem; /* Adjust size as needed */
+  margin: 0;
+  color: #FFF; /* White text */
+}
+
+.episode-info p {
+  font-size: 0.7rem; /* Smaller font size for the description */
+  margin: 2px 0 0; /* Space from the title */
+  color: #CCC; /* Lighter grey for less emphasis */
+  overflow: hidden; /* Ensures no text overflow */
+  text-overflow: ellipsis; /* Adds an ellipsis to text that overflows */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limits to 3 lines */
+  -webkit-box-orient: vertical;
+  padding-right: 10px;
+}
+
+#episodeList::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  height: 8px; /* Height of the scrollbar */
+}
+
+#episodeList::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color of the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners of the scrollbar thumb */
+}
+
+#episodeList::-webkit-scrollbar-track {
+  background-color: #333; /* Color of the scrollbar track */
+}
+
+.episode:last-child {
+  margin-right: 0; /* Remove margin from the last episode */
+}
+
+.episode:hover {
+	transform: scale(1.05);
+    background-color: #444444;
+}
+
+.episode.previous {
+    opacity: 0.4; /* Previous episodes color */
+}
+
+.episode.current {
+    background-color: #111111; /* Current episode color */
+}
+
+.watch-btn-center {
+    max-width: 200px;
+    display: block;
+    background-color: rgb(0 0 0 / 60%);
+    padding: 10px 0;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 5px auto;
+    transition: background-color 0.3s ease;
+}
+
+.watch-btn-center:hover {
+    background-color: #45a049;
+}
+
+.poster-trailer-container {
+    position: relative;
+	height: 450px;
+    width: 100%;
+    max-width: 780px; /* Adjust to match the poster container size */
+}
+
+.movie-trailer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Cover the entire container */
+    border: none;
+    display: none; /* Initially hidden */
+	border-radius: 20px;
+}
+
+.movie-poster-detail {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+hr {
+	margin-top: 50px;
+	background-color: #543;
+    height: 2px;
+    border: 0;
+}
+
+.cast-crew-section {
+    margin-top: 20px;
+}
+
+.cast-crew-section h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+	margin-left: 5px;
+}
+
+.cast-list {
+	border-top: 1px solid #543;
+}
+
+.cast-list, .crew-list {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px;
+    max-width: 768px;
+}
+
+.cast-list::-webkit-scrollbar, .crew-list::-webkit-scrollbar {
+	width: 8px;
+    height: 8px;
+}
+
+.cast-list::-webkit-scrollbar-thumb, .crew-list::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scrollbar thumb */
+    border-radius: 4px; /* Rounded corners of the scrollbar thumb */
+}
+
+.person-card {
+    flex: 0 0 auto;
+    max-width: 80px;
+    margin-right: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.person-card img {
+    max-width: 60px;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.person-card p {
+    font-size: 0.8em;
+    margin-top: 5px;
+}
+
+.similar-section {
+	padding: 10px 0;
+}
+
+.similar-section h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+	margin-left: 5px;
+}
+
+.similar-results {
+	border-top: 1px solid #543;
+    display: flex;
+    overflow-x: auto;
+    padding: 12px;
+    max-width: 768px;
+}
+
+.similar-results::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+  height: 12px; /* Height of the scrollbar */
+}
+
+.similar-results::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color of the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners of the scrollbar thumb */
+}
+
+.similar-results::-webkit-scrollbar-track {
+  background-color: #333; /* Color of the scrollbar track */
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+}
+
+.person-card:hover {
+    transform: scale(1.05);
+}
+
+.movie-card img {
+    max-width: 180px;
+    max-height: 260px;
+    border-radius: 15px 15px 0 0;
+    cursor: pointer;
+}
+
+.movie-card {
+    position: relative;
+    max-width: 180px;
+	max-height: 215px;
+    margin-right: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-size: small;
+    background-color: transparent;
+    border-radius: 10px;
+    padding-bottom: 50px;
+}
+
+.similar-section .movie-card .add-to-list {
+	position: absolute;
+    bottom: 10px;
+    cursor: pointer;
+    margin: 0 5px;
+	text-align: center;
+}
+
+.similar-section .movie-card .add-to-list.watchlist {
+    left: 1px; /* Align to the left side */
+}
+
+.similar-section .movie-card .add-to-list.favorites {
+    right: 1px; /* Align to the right side */
+}
+
+.add-to {
+	display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center the items */
+    align-items: center; /* Center items vertically */
+    gap: 10px; /* Add some space between the items */
+    margin: auto;
+}
+
+.add-to-list {
+    cursor: pointer;
+	font-size: 1.8em;
+    display: inline-block;
+    transition: color 0.3s ease;
+	background-color: rgb(0 0 0 / 60%);
+	border-radius: 50px;
+	text-align: center;
+	width: 30px;
+	height: 30px;
+}
+
+.add-to-list.favorites.added {
+    color: red; /* Change to your preferred color */
+}
+
+.add-to-list.watchlist.added {
+    color: green; /* Change to your preferred color */
+}
+
+.add-to-list:hover {
+    background-color: #000;
+	transform: scale(1.05); /* Slightly enlarge the card on hover */
+    transition: transform 0.2s ease-in-out;
+}
+
+#dropdown {
+	margin-top: 10px;
+    padding: 10px;
+    background-color: #1C1C1C;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+@media (max-width: 768px) {
+    .poster-trailer-container {
+        height: 55vh; /* 60% of the viewport height */
+        max-width: 100%; /* Adjust max-width to be more flexible */
+    }
+}
+
+@media (max-width: 480px) {
+    .poster-trailer-container {
+        height: 30vh; /* 50% of the viewport height */
+        max-width: 100%; /* Adjust max-width to be more flexible */
+    }
+	#detailContent h2 {
+		margin-top: 30px;	
+	}	
+	.container {
+		padding: 20px 0;
+	}
+}
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9); 
+    justify-content: center; 
+    align-items: center;
+}
+
+.modal-content {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    width: 80%;
+    max-width: 700px;
+    height: auto;
+    max-height: 90%;
+    background-color: #000;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#videoPlayer {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.movie-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: none; /* Initially hidden */
+    border-radius: 20px;
+}
+
+.cinema-mode-btn {
+    position: absolute;
+    right: 10px;
+	bottom: -30px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 10;
+	display: none;
+	font-size: 16px;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	padding: 2px;
+}
+
+.cinema-exit-btn {
+    position: absolute;
+    right: 45px;
+	bottom: -30px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 10;
+	display: none;
+	font-size: 12px;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+}
+
+.cinema-exit-btn:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.cinema-mode-btn:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.cinema-mode-active .cinema-exit-btn, .cinema-mode-active .cinema-mode-btn {
+	opacity: 0.1;
+	color: white;
+}
+
+.cinema-mode-active .cinema-exit-btn {
+	position: fixed;
+	right: 50px;
+	bottom: 10px;
+}	
+
+.cinema-mode-active .cinema-mode-btn {
+	position: fixed;
+	right: 20px;
+	bottom: 10px;
+}
+
+.cinema-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 9998;
+    display: none;
+}
+
+.cinema-mode-active .cinema-overlay {
+    display: block;
+}
+
+.cinema-mode-active .poster-trailer-container {
+    z-index: 9999;
+    position: relative;
+}
+
+.cinema-mode-active .movie-video {
+    width: 100%;
+    height: 90%;
+    z-index: 10000;
+    border-radius: 0;
+	position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.open-popup-btn {
+    position: absolute;
+    right: 85px;
+	bottom: -30px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: red;
+    border: none;
+    padding: 2px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 10;
+	display: none;
+}
+
+.isCurrent {
+	top: 10px;
+	right: 1px;
+}

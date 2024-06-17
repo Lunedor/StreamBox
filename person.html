@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Box</title>
+    <link rel="stylesheet" href="global.css">
+	<link rel="stylesheet" href="person.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<header>
+	<button class="back-btn" onclick="goBack()">
+		<i class="material-icons">home</i> Home
+	</button>
+</header>
+<body>
+    <div class="container">
+        <div id="personContent" class="person-content">
+            <!-- Person details will be dynamically inserted here -->
+        </div>
+        <div class="person-movies-section">
+            <h3>Known For</h3>
+            <div id="personMovies" class="person-movies"></div>
+        </div>
+    </div>
+	<select id="dropdown">
+			<option value="me">vidsrc.me</option>
+			<option value="to">vidsrc.to</option>
+			<option value="pro">vidsrc.pro</option>
+			<option value="in">vidsrc.in</option>
+			<option value="net">vidsrc.net</option>
+			<option value="xyz">vidsrc.xyz</option>
+			<option value="pm">vidsrc.pm</option>
+			<option value="2embed">2embed</option>
+			<option value="superembed">superembed</option>
+		</select>
+	<script src="common.js" defer></script>
+    <script src="person.js"></script> <!-- Ensure this path matches your JS file -->
+</body>
+</html>

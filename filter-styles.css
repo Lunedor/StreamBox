@@ -1,0 +1,196 @@
+body {
+    max-width : 1000px;
+    text-align: center;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    font-size: 1em;
+    display: flex;
+    align-items: end;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.back-btn i {
+    margin-right: 5px;
+}
+
+.back-btn:hover {
+    color: #45a049;
+	background-color: transparent;
+}
+
+.movie-results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.movie-card {
+    position: relative;
+    width: 180px;
+    height: 260px;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-align: center;
+    font-size: small;
+    background-color: transparent;
+    border-radius: 15px;
+    padding-bottom: 5px;
+	cursor: pointer;
+}
+
+.movie-card .movie-poster{
+    width: 180px;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+}
+
+.movie-card:hover {
+    transform: scale(1.05); /* Slightly enlarge the card on hover */
+    transition: transform 0.2s ease-in-out;
+}
+
+.movie-card h3, .movie-card p {
+    margin: 5px 0;
+}
+
+#filterContainer {
+	margin-top: 60px;
+    margin-bottom: 20px;
+}
+
+select, button {
+    padding: 10px;
+    margin: 5px;
+    background-color: #1C1C1C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#pagination button {
+    padding: 10px 20px;
+}
+
+#pagination button {
+    padding: 10px 20px;
+}
+
+#pagination span {
+    margin: 0 15px;
+}
+
+.add-to {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    bottom: 40px;
+}
+
+.add-to-list {
+    position: relative;
+    bottom: 0px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.6); /* Keeping your background settings */
+    border-radius: 50%;
+    display: inline-block;
+	align-content: center;
+}
+
+.add-to-list.watchlist {	
+    left: 10px; /* Align to the left side */
+}
+
+.add-to-list.favorites {
+    right: 10px; /* Align to the right side */
+}
+
+.add-to-list:hover {
+    background-color: #000;
+	transform: scale(1.05); /* Slightly enlarge the card on hover */
+    transition: transform 0.2s ease-in-out;
+}
+
+.material-icons {
+	margin-top: 3px;
+}
+
+.favorites.added {
+    color: red; /* Change to your preferred color */
+}
+
+.watchlist.added {
+    color: green; /* Change to your preferred color */
+}
+
+.isCurrent {
+	position: relative;
+    bottom: 220px;
+    left: 65px;
+}
+
+#currentPage {
+    font-size: 16px; /* Adjust font size for better visibility */
+    padding: 7px 10px; /* Add padding to make the input field taller and more readable */
+    border: 1px solid #ccc; /* Subtle border color */
+    border-radius: 4px; /* Rounded corners for a modern look */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); /* Inner shadow for a subtle depth */
+    width: 50px; /* Set a fixed width */
+    text-align: center; /* Center text */
+    margin: auto 15px; /* Space it out from any adjacent elements */
+    display: inline-block; /* Ensure it does not break into a new line */
+    background-color: #222; /* Background color */
+    color: #ccc; /* Text color */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for interactions */
+}
+
+#currentPage:focus {
+    border-color: #66afe9; /* Highlight color when focused */
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6); /* Glow effect when focused */
+}
+
+button:hover {
+	background-color: #CC4C35;
+}
+
+#applyButton {
+	background-color: #FF6347;
+}
+
+#applyButton:hover {
+	background-color: #CC4C35;
+}
+
+@media (max-width: 768px) { 
+ .movie-card {
+	 transform: scale(0.9);
+	 margin: 0;
+ }
+ .movie-results {
+	 margin: 0 10px 0 0
+ }
+ #filterContainer {
+    width: 30vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 60px auto 20px auto;
+ }
+}
