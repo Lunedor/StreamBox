@@ -3,9 +3,11 @@
 This project is a web application for tracking movies and TV shows. Users can add items to their watchlist, watched list, and track the current watching state for TV shows. 
 It uses IndexedDB to store data, so there is no need for a login process, but I highly recommend backing up your data frequently.
 
+[Demo](https://streambox.x10.mx)
+
 ## Features
 
-- **Favorites and Watchlist Management**: Add and remove movies and TV shows from your favorites and watchlist.
+- **Watchlist and Watched list Management**: Add and remove movies and TV shows from your watchlist and watched list.
 - **Current Watching State**: Track the current episode of TV shows you are watching.
 - **Detailed Information**: View detailed information about movies and TV shows, including trailers, cast, crew, and similar items.
 - **Filtering and Sorting**: Filter and sort items based on genre, year, and rating.
