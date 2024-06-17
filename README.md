@@ -24,8 +24,8 @@ It uses IndexedDB to store data, so there is no need for a login process, but I 
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/movie-tv-tracker.git
-    cd movie-tv-tracker
+    git clone https://github.com/lunedor/StreamBox.git
+    cd StreamBox
     ```
 
 2. Open common.js and write your TMDB API key on the first line.
