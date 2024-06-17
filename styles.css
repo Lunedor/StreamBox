@@ -184,7 +184,6 @@ h3 {
 }
 
 #ActionSection, #ComedySection, #RomanceSection, #ScienceFictionSection, #MysterySection, #DocumentarySection, #DramaSection, #AnimationSection {
-	width: 100%;
     display: flex;
     overflow-x: scroll;
     padding: 10px;
