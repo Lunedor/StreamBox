@@ -104,6 +104,11 @@ async function displayPage() {
 			else{
 			const url = buildUrl(isTV, data);
 			displayMovie(url);
+             
+            if (isTV && !isCurrent) {
+                const showDetails = await fetchGeneral(data.id, 'tv'); // Fetch show details
+                await setCurrentEpisode(data.id, 1, 2, showDetails, false); // Add to watching list with season 1, episode 1
+                }
 			}
 		});
 		
@@ -271,6 +276,8 @@ function updateVidSource(value) {
         base = 'https://www.2embed.cc';
     } else if (value === 'superembed') {
         base = 'https://multiembed.mov';
+    } else if (value === 'pro') {
+        base = 'https://embed.su';
     } else {
         base = `https://vidsrc.${value}`;
     }
@@ -297,9 +304,18 @@ function buildUrl(isTV, item, currentSeason, currentEpisode) {
                 url += `&s=${currentSeason}&e=${currentEpisode}`;
             }
         }
-    } else {
+    } 
+	else if (window.vidSource.type === 'pro') {
+		url = `${window.vidSource.base}/embed/${isTV ? 'tv' : 'movie'}`;
+		url += `/${id}`;
+		if (isTV) {
+			const season = currentSeason || 1;
+			const episode = currentEpisode || 1;
+			url += `/${season}/${episode}`;
+		}
+	} else {
         url = `${window.vidSource.base}/embed/${isTV ? 'tv' : 'movie'}`;
-        if (['to', 'pro'].includes(window.vidSource.type)) {
+        if (['to'].includes(window.vidSource.type)) {
             url += `/${id}`;
             if (isTV && currentSeason && currentEpisode) {
                 url += `/${currentSeason}/${currentEpisode}`;
@@ -309,6 +325,7 @@ function buildUrl(isTV, item, currentSeason, currentEpisode) {
             if (isTV && currentSeason && currentEpisode) {
                 url += `&season=${currentSeason}&episode=${currentEpisode}`;
             }
+			url += '&ds_lang=tr'
         }
     }
 
