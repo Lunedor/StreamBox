@@ -1,16 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arima:wght@400;700&display=swap');
 body {
     background-color : #111111;
     color : #FFFFFF;
     padding : 20px;
     margin : auto;
-    font-family : 'Chivo', sans-serif;
+    font-family: 'Montserrat';
     font-weight : 300;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family : 'Playfair Display', serif;
-    font-weight : 700;
-    font-style : italic;
+    font-family: 'Lobster';
+    font-weight: 300;
+    font-style: normal; 
 }
 
 header {

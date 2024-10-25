@@ -410,10 +410,12 @@ h3 {
     text-wrap: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+	font-size: large;
 }
 
 .continue-details .movie-current {
     bottom: 35px;
+	font-size: small;
 }
 
 .toggle-wrapper {
@@ -724,8 +726,9 @@ h2:before {
 
 .next-date {
     position: absolute;
-    bottom: 10px;
+    bottom: 20px;
     margin: auto;
     text-align: center;
     width: 100%;
+	font-size: small;
 }

@@ -920,9 +920,9 @@ async function displayMovies(movies, containerId, isTV) {
                 <h4>${title}</h4>
                 ${
                     isTV && !item.isWaiting && currentSeason && currentEpisode 
-                    ? `<p class="movie-current"><strong>S:</strong>${currentSeason} <strong>E:</strong>${currentEpisode}</p>` 
+                    ? `<p class="movie-current">S:${currentSeason} E:${currentEpisode}</p>` 
                     : isTV && item.isWaiting && item.nextEpisodeAirDate 
-                    ? `<p class="movie-current"><strong>S:${nextEpisodeSeason} E:${nextEpisodeEpisode}</strong></p>
+                    ? `<p class="movie-current">S:${nextEpisodeSeason} E:${nextEpisodeEpisode}</p>
                     <p class="next-date">${nextEpisodeDate}</p>` 
                     : ''
                 }
