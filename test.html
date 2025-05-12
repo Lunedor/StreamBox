@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test Registration & Login</title>
+</head>
+<body>
+
+  <h1>Register</h1>
+  <form id="registerForm">
+    <label for="regUsername">Username:</label>
+    <input type="text" id="regUsername" name="username" required>
+    <br><br>
+
+    <label for="regPassword">Password:</label>
+    <input type="password" id="regPassword" name="password" required>
+    <br><br>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <p id="registerResult" style="color: green;"></p>
+
+  <hr>
+
+  <h1>Login</h1>
+  <form id="loginForm">
+    <label for="loginUsername">Username:</label>
+    <input type="text" id="loginUsername" name="username" required>
+    <br><br>
+
+    <label for="loginPassword">Password:</label>
+    <input type="password" id="loginPassword" name="password" required>
+    <br><br>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <p id="loginResult" style="color: blue;"></p>
+
+  <script>
+    // Handle Registration
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+
+      fetch('api/register.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        const resultEl = document.getElementById('registerResult');
+        if (data.success) {
+          resultEl.style.color = 'green';
+          resultEl.textContent = data.message;
+        } else {
+          resultEl.style.color = 'red';
+          resultEl.textContent = data.message;
+        }
+      })
+      .catch(error => {
+        console.error('Registration error:', error);
+        document.getElementById('registerResult').textContent = 'Error: ' + error;
+      });
+    });
+
+    // Handle Login
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+
+      // Note: credentials: 'include' is used to include session cookies
+      fetch('api/login.php', {
+        method: 'POST',
+        body: formData,
+        credentials: 'include'
+      })
+      .then(response => response.json())
+      .then(data => {
+        const resultEl = document.getElementById('loginResult');
+        if (data.success) {
+          resultEl.style.color = 'blue';
+          resultEl.textContent = data.message;
+        } else {
+          resultEl.style.color = 'red';
+          resultEl.textContent = data.message;
+        }
+      })
+      .catch(error => {
+        console.error('Login error:', error);
+        document.getElementById('loginResult').textContent = 'Error: ' + error;
+      });
+    });
+  </script>
+
+</body>
+</html>
