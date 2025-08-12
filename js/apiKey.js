@@ -1,4 +1,4 @@
-const apiKey = "04f2f288263683f12131ae2ae1d348c6";
+const apiKey = "YOUR_API_KEY";
 
 // Expose the chosen API key globally
 window.apiKey = apiKey;
