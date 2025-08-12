@@ -1,12 +1,11 @@
-# StreamBoxV2
-New Version of StreamBox Project.
+# StreamBox
 
 # Movie and TV Show Tracker
 
 This project is a web application for tracking movies and TV shows. Users can add items to their watchlist, watched list, and track the current watching state for TV shows. 
 It uses IndexedDB to store data, so there is no need for a login process, but I highly recommend backing up your data frequently.
 
-[Demo](https://lunedor.x10.mx)
+[Demo](https://streambox.x10.mx)
 
 ## Features
 
