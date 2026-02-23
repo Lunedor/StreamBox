@@ -1,29 +1,12 @@
 // details.js
 
 // Apply theme at the start of the details page
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Apply theme from localStorage first thing
-    const savedTheme = localStorage.getItem('theme');
-    const isDarkTheme = savedTheme === 'dark' || !savedTheme; // Default to dark
-    window.isDarkTheme = isDarkTheme;
-    
-    // Apply theme
     if (typeof window.applyTheme === "function") {
-        window.applyTheme(isDarkTheme);
-    } else {
-        // Fallback theme application if applyTheme isn't available yet
-        document.documentElement.style.setProperty('--background-color', isDarkTheme ? '#1b1b1b' : '#FBFBFB');
-        document.documentElement.style.setProperty('--text-color', isDarkTheme ? '#e0e0e0' : '#000000');
-        document.documentElement.style.setProperty('--hover-color', isDarkTheme ? 'crimson' : 'crimson');
-        document.documentElement.style.setProperty('--border-color', isDarkTheme ? '#333' : '#ccc');
-        document.documentElement.style.setProperty('--accent-color', isDarkTheme ? '#888888' : '#888888');
-        document.documentElement.style.setProperty('--button-color', isDarkTheme ? '#ccc' : '#333');
-        document.documentElement.style.setProperty('--img-filter', isDarkTheme ? 'invert(0.8)' : 'invert(0)');
-        document.documentElement.style.setProperty('--logo-filter', isDarkTheme ? 'invert(0)' : 'invert(1)');
-        document.documentElement.style.setProperty('--scrollbar-thumb', isDarkTheme ? '#606060' : '#ddd');
-        document.documentElement.style.setProperty('--scrollbar-track', isDarkTheme ? '#202020' : '#bbb');
+        window.applyTheme(window.isDarkTheme);
     }
-    
+
     // Initialize the detail page
     initDetailPage();
 });
@@ -31,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
 let urlParams = new URLSearchParams(window.location.search);
 let id = urlParams.get('id');
 let mediaType = urlParams.get('type') || 'movie';
-let isDisplay = false;
 let firstClick = true;
 let timeCalled = false;
 
@@ -68,10 +50,14 @@ async function initDetailPage() {
         detailContainer.innerHTML = buildDetailHTML(details);
 
         let watchBtn = document.getElementById("watchBtnCenter");
+        let comingSoonMsg = document.getElementById("comingSoonMessage");
+
         if (!isAvailable && watchBtn) {
             watchBtn.style.display = "none";
+            if (comingSoonMsg) comingSoonMsg.style.display = "flex";
         } else if (watchBtn) {
             watchBtn.style.display = "block";
+            if (comingSoonMsg) comingSoonMsg.style.display = "none";
         }
 
         if (mediaType === 'tv' && details.seasons?.length) {
@@ -96,7 +82,7 @@ async function initDetailPage() {
         loadTrailer();
 
         let tvProgress = await window.getTvProgress(id);
-        
+
         // ✅ KEEP YOUR ORIGINAL LOGIC (FOR SEASON SELECTION)
         if (tvProgress) {
             if (mediaType === 'tv' && details.seasons && details.seasons.length) {
@@ -120,10 +106,14 @@ async function initDetailPage() {
             let episodeAvailable = window.availableEpisodeIDs.has(nextEpisodeKey);
 
             let watchBtn = document.getElementById("watchBtnCenter");
+            let comingSoonMsg = document.getElementById("comingSoonMessage");
+
             if (!episodeAvailable) {
                 watchBtn.style.display = "none";
+                if (comingSoonMsg) comingSoonMsg.style.display = "flex";
             } else {
                 watchBtn.style.display = "block";
+                if (comingSoonMsg) comingSoonMsg.style.display = "none";
             }
         }
 
@@ -167,9 +157,13 @@ function buildDetailHTML(details) {
 			<button id="watchBtnCenter" class="watch-btn-center" onclick="displayMovie(true)">
 			  <i class="fa-regular fa-circle-play"></i>
 			</button>
-      ${
-		  `<div class="backdrop" style="background-image: url('${window.formatImageUrl(details.backdrop_path, true)}')"></div>`
-      }
+            <!-- Coming Soon Message -->
+            <div id="comingSoonMessage" class="coming-soon-message" style="display: none;">
+                <i class="fa-regular fa-clock"></i>
+                <span>Coming Soon</span>
+            </div>
+      ${`<div class="backdrop" style="background-image: url('${window.formatImageUrl(details.backdrop_path, true)}')"></div>`
+        }
 	  <iframe class="movie-video" id="movieVideo" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       <!-- AutoNext Switch -->
        <div class="autonext-container">
@@ -180,50 +174,43 @@ function buildDetailHTML(details) {
             <span>AutoNext</span>
         </div>
       <div class="poster-container">
-        ${
-			`<img src="${window.formatImageUrl(details.poster_path)}" class="poster-image" alt="${details.title || details.name}">`
+        ${`<img src="${window.formatImageUrl(details.poster_path)}" class="poster-image" alt="${details.title || details.name}">`
         }
         <div class="detail-content">
           <div class="title-section">
             <h1>${details.title || details.name}</h1>
-            ${
-              details.release_date || details.first_air_date
-                ? `<span class="year">(${new Date(details.release_date || details.first_air_date).getFullYear()})</span>`
-                : ''
-            }
+            ${details.release_date || details.first_air_date
+            ? `<span class="year">(${new Date(details.release_date || details.first_air_date).getFullYear()})</span>`
+            : ''
+        }
           </div>
-          ${
-            details.tagline
-              ? `<p class="tagline">${details.tagline}</p>`
-              : ''
-          }
+          ${details.tagline
+            ? `<p class="tagline">${details.tagline}</p>`
+            : ''
+        }
           <div class="meta-info">
-            ${
-              details.runtime
-                ? `<span><i class="fas fa-clock" style="opacity: 0.8"></i>${details.runtime} mins</span>`
-                : ''
-            }
-            ${
-              details.vote_average
-                ? `<span><i class="fas fa-star" style="color:yellow; opacity: 0.8; filter:drop-shadow(0 0 3px gray)"></i>${details.vote_average.toFixed(1)}</span>`
-                : ''
-            }
-            ${
-              details.genres?.length
-                ? `<span><i class="fas fa-tag" style="opacity: 0.8"></i>${details.genres.map(g => g.name).join(', ')}</span>`
-                : ''
-            }
+            ${details.runtime
+            ? `<span><i class="fas fa-clock" style="opacity: 0.8"></i>${details.runtime} mins</span>`
+            : ''
+        }
+            ${details.vote_average
+            ? `<span><i class="fas fa-star" style="color:yellow; opacity: 0.8; filter:drop-shadow(0 0 3px gray)"></i>${details.vote_average.toFixed(1)}</span>`
+            : ''
+        }
+            ${details.genres?.length
+            ? `<span><i class="fas fa-tag" style="opacity: 0.8"></i>${details.genres.map(g => g.name).join(', ')}</span>`
+            : ''
+        }
           </div>
-          ${
-            details.overview
-              ? `
+          ${details.overview
+            ? `
                 <div class="overview">
                   <h3 class="section-title">Overview</h3>
                   <p>${details.overview}</p>
                 </div>
               `
-              : ''
-          }
+            : ''
+        }
 		  <div class="actions">
             <!-- Favori Butonu -->
             <button class="action-btn fav-btn" onclick="toggleFavoriteT(${details.id}, '${mediaType}', this)" aria-label="Favorite">
@@ -241,19 +228,17 @@ function buildDetailHTML(details) {
     </div>
 
     <!-- Cast -->
-    ${
-      details.credits?.cast?.length
-        ? `
+    ${details.credits?.cast?.length
+            ? `
           <div class="detail-section">
             <h3 class="section-title">Cast</h3>
             <div class="cast-crew-scroll">
               ${details.credits.cast.slice(0, 10).map(member => `
                 <div class="cast-crew-item" onclick="goPersonPage(${member.id})">
-                  ${
-                    member.profile_path
-                      ? `<img src="${window.formatImageUrl(member.profile_path)}" alt="${member.name}">`
-                      : `<img src="https://placehold.co/75x100?text=${member.name}" alt="${member.name}">`
-                  }
+                  ${member.profile_path
+                    ? `<img src="${window.formatImageUrl(member.profile_path)}" alt="${member.name}">`
+                    : `<img src="https://placehold.co/75x100?text=${member.name}" alt="${member.name}">`
+                }
                   <h4>${member.name}</h4>
                   ${member.character ? `<p>${member.character}</p>` : ''}
                 </div>
@@ -261,43 +246,39 @@ function buildDetailHTML(details) {
             </div>
           </div>
         `
-        : ''
-    }
+            : ''
+        }
 	${details.credits?.cast?.length ? `<script>enableHorizontalMouseDrag(document.getElementById("castScroll"));</script>` : ''}
 
     <!-- Crew -->
-	${
-	  details.credits?.crew?.filter(member => ['Director', 'Writer', 'Screenplay', 'Director of Photography', 'Producer', 'Original Music Composer'].includes(member.job)).length
-		? `
+	${details.credits?.crew?.filter(member => ['Director', 'Writer', 'Screenplay', 'Director of Photography', 'Producer', 'Original Music Composer'].includes(member.job)).length
+            ? `
 		  <div class="detail-section">
 			<h3 class="section-title">Crew</h3>
 			<div class="cast-crew-scroll" id="crewScroll">
-			  ${
-				details.credits.crew
-				  .filter(member => ['Director', 'Writer', 'Screenplay', 'Director of Photography', 'Producer', 'Original Music Composer'].includes(member.job))
-				  .sort((a, b) => {
-					const priority = ['Director', 'Writer', 'Screenplay', 'Director of Photography', 'Producer', 'Original Music Composer'];
-					return priority.indexOf(a.job) - priority.indexOf(b.job);
-				  })
-				  .map(member => `
+			  ${details.credits.crew
+                .filter(member => ['Director', 'Writer', 'Screenplay', 'Director of Photography', 'Producer', 'Original Music Composer'].includes(member.job))
+                .sort((a, b) => {
+                    const priority = ['Director', 'Writer', 'Screenplay', 'Director of Photography', 'Producer', 'Original Music Composer'];
+                    return priority.indexOf(a.job) - priority.indexOf(b.job);
+                })
+                .map(member => `
 					<div class="cast-crew-item" onclick="goPersonPage(${member.id})">
-					  ${
-						member.profile_path
-						  ? `<img src="${window.formatImageUrl(member.profile_path)}" alt="${member.name}">`
-						  : `<img src="https://placehold.co/75x100?text=${member.name}" alt="${member.name}">`
-					  }
+					  ${member.profile_path
+                        ? `<img src="${window.formatImageUrl(member.profile_path)}" alt="${member.name}">`
+                        : `<img src="https://placehold.co/75x100?text=${member.name}" alt="${member.name}">`
+                    }
 					  <h4>${member.name}</h4>
 					  ${member.job ? `<p>${member.job}</p>` : ''}
 					</div>
 				  `).join('')} </div> </div>`
-		: ''
-	}
+            : ''
+        }
 	${details.credits?.crew?.length ? `<script>enableHorizontalMouseDrag(document.getElementById("crewScroll"));</script>` : ''}
 
     <!-- TV Sezonları -->
-	${
-	  details.seasons?.length
-		? `
+	${details.seasons?.length
+            ? `
 		  <div class="detail-section">
 			<h3 class="section-title">Seasons</h3>
 			<div class="seasons-controls">
@@ -313,32 +294,30 @@ function buildDetailHTML(details) {
 			<div class="episodes-grid" id="episodesContainer"></div>
 		  </div>
 		`
-		: ''
-	}
+            : ''
+        }
 
     <!-- Collection (birden fazla filmin olduğu seriler) -->
-    ${
-      details.belongs_to_collection
-        ? `
+    ${details.belongs_to_collection
+            ? `
           <div class="detail-section">
             <h3 class="section-title">Collection</h3>
             <div class="horizontal-scroll" id="collectionContainer"></div>
           </div>
         `
-        : ''
-    }
+            : ''
+        }
 
     <!-- Similar Items -->
-    ${
-      details.similar?.results?.length
-        ? `
+    ${details.similar?.results?.length
+            ? `
           <div class="detail-section">
             <h3 class="section-title">Similar Titles</h3>
             <div class="horizontal-scroll" id="similarContainer"></div>
           </div>
         `
-        : ''
-    }
+            : ''
+        }
   `;
 }
 
@@ -530,7 +509,7 @@ async function attachEpisodeClickEvents() {
             const episodeCard = event.target.closest('.episode-card');
             const clickedSeason = parseInt(episodeCard.getAttribute("data-season"), 10);
             const clickedEpisode = parseInt(episodeCard.getAttribute("data-episode"), 10);
-            
+
             // Calculate next episode based on the clicked episode
             const nextEpCalc = await getNextEpisode(clickedSeason, clickedEpisode);
             if (nextEpCalc) {
@@ -558,7 +537,7 @@ async function attachEpisodeClickEvents() {
                     lastEpisode,
                     lastEpisodeAirDate
                 );
-                
+
                 // Refresh episode list and switch season if needed
                 if (nextEpCalc.season !== clickedSeason) {
                     let seasonSelect = document.querySelector('.season-select');
@@ -602,7 +581,7 @@ async function markNextEpisodeAsWatched(currentSeason, currentEpisode) {
 function buildUrl() {
     let isTV = mediaType === "tv" ? true : false;
     let url;
-    url = `https://vidsrc.net/embed/${isTV ? 'tv' : 'movie'}`;
+    url = `https://vsembed.ru/embed/${isTV ? 'tv' : 'movie'}`;
     url += `?tmdb=${id}`;
     url += '&ds_lang=tr'
     return url;
@@ -685,12 +664,14 @@ async function displayMovie(isDisplay) {
                 let seasonNumber = progress.season;
                 let episodeNumber = progress.episode;
 
-                let iframeUrl = `https://vidsrc.net/embed/tv?tmdb=${id}&season=${seasonNumber}&episode=${episodeNumber}${autonextEnabled}&ds_lang=tr`;
+                let iframeUrl = `https://vsembed.ru/embed/tv?tmdb=${id}&season=${seasonNumber}&episode=${episodeNumber}${autonextEnabled}&ds_lang=tr`;
                 videoElement.src = iframeUrl;
                 loadSeasonEpisodes(seasonNumber);
                 if ((progress.season > progress.lastSeason) || (progress.season === progress.lastSeason && progress.episode === progress.lastEpisode)) {
                     let watchBtn = document.getElementById("watchBtnCenter");
+                    let comingSoonMsg = document.getElementById("comingSoonMessage");
                     watchBtn.style.display = "none";
+                    if (comingSoonMsg) comingSoonMsg.style.display = "flex";
                 }
             }
         } else {
@@ -717,7 +698,7 @@ async function displayMovie(isDisplay) {
 
 function playEpisode(season, episode) {
     let iframe = document.querySelector(".movie-video");
-    let url = `https://vidsrc.net/embed/tv?tmdb=${id}&season=${season}&episode=${episode}`;
+    let url = `https://vsembed.ru/embed/tv?tmdb=${id}&season=${season}&episode=${episode}`;
     iframe.src = url;
     displayMovie(true);
     loadSeasonEpisodes(season);
@@ -851,7 +832,7 @@ async function handleEpisodeClick(season, episode) {
 
 let hasSeeked = false; // Ensure seek only happens once per session
 
-window.addEventListener('message', async function(event) {
+window.addEventListener('message', async function (event) {
     if (!event.data || typeof event.data !== 'object') return;
     console.log('Received message:', event.data);
 
@@ -860,14 +841,14 @@ window.addEventListener('message', async function(event) {
         const progress = mediaType === 'movie'
             ? await window.getMovieProgress(id)
             : await window.getTvProgress(id);
-        
+
         if (progress) {
             console.log(`Seeking to stored progress: ${progress.currentTime} seconds`);
-            document.getElementById("movieVideo").contentWindow.postMessage({"api":"seek","set":progress.currentTime}, "*");
+            document.getElementById("movieVideo").contentWindow.postMessage({ "api": "seek", "set": progress.currentTime }, "*");
             hasSeeked = true; // Prevent multiple seek attempts
         } else {
             console.log(`Seeking to start`);
-            document.getElementById("movieVideo").contentWindow.postMessage({"api":"seek","set":0}, "*");
+            document.getElementById("movieVideo").contentWindow.postMessage({ "api": "seek", "set": 0 }, "*");
             hasSeeked = true; // Prevent multiple seek attempts
         }
     }
@@ -897,7 +878,7 @@ window.addEventListener('message', async function(event) {
                 await toggleWatchedT(id, 'movie', null);
                 await window.removeMovieProgress(id);
                 updateButtonStates();  // Update the UI to show watched status
-                
+
                 // Refresh the movie progress UI
                 if (typeof window.renderMovieProgressUI === 'function') {
                     window.renderMovieProgressUI();
