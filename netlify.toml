@@ -1,0 +1,3 @@
+[build]
+  publish = "."
+  command = "sed -i 's/YOUR_API_KEY/$API_KEY/g' js/apiKey.js" # But use env var
