@@ -269,17 +269,17 @@ window.availableTVIDs = new Set();
 async function fetchAvailableIDs() {
   try {
     // Fetch movie IDs
-    const movieResponse = await fetch('https://vsembed.ru/ids/mov_tmdb.txt');
+    const movieResponse = await fetch('https://vidsrc.tw/ids/mov_tmdb.txt');
     const movieText = await movieResponse.text();
     window.availableMovieIDs = new Set(movieText.trim().split('\n').map(id => parseInt(id)));
 
     // Fetch TV show IDs
-    const tvResponse = await fetch('https://vsembed.ru/ids/tv_tmdb.txt');
+    const tvResponse = await fetch('https://vidsrc.tw/ids/tv_tmdb.txt');
     const tvText = await tvResponse.text();
     window.availableTVIDs = new Set(tvText.trim().split('\n').map(id => parseInt(id)));
 
     // Fetch episode IDs with correct format
-    const epsResponse = await fetch('https://vsembed.ru/ids/eps_tmdb.txt');
+    const epsResponse = await fetch('https://vidsrc.tw/ids/eps_tmdb.txt');
     const epsText = await epsResponse.text();
     window.availableEpisodeIDs = new Set(epsText.trim().split('\n'));
 
